@@ -26,21 +26,30 @@ try:
     
 except Exception as FaltaXLSX:
     print(FaltaXLSX)
-
+'''
 #-----------------------------se importa la columna Articulo de clavesadd en un df
-query = "SELECT [Articulo] FROM clavesadd;"
+query = "SELECT [articulo] FROM partvta;"
 dfArti = pd.read_sql(query, cnxn)
 #-----------------------------------------comparar Articulo de clavesadd con viejo
-for i in range(0,12):
-    clave=str(dfArti.loc[i,'Articulo'])
-    for j in range(0,1201):
+for i in range(0,210249):
+    clave=str(dfArti.loc[i,'articulo'])
+    
+    for j in range(0,1194):
         ArtiV=str(dfup.loc[j,'Viejo'])
         if clave==ArtiV:
-            ArtiN=dfup.loc[j,'Nuevo']
-            print(i,j,ArtiN,ArtiV) #---------------------------------actualizar prods
-            cursor.execute("UPDATE Clavesadd SET Clave='"+ArtiN+"' WHERE ARTICULO='"+ArtiV+"'")
+            ArtiN=str(dfup.loc[j,'Nuevo'])
+            print(ArtiN,ArtiV) #---------------------------------actualizar prods
+            cursor.execute("UPDATE partvta SET Articulo='"+ArtiN+"' WHERE Articulo='"+ArtiV+"'")
+
+'''
 
 
+for j in range(0,1194):
+    ArtiV=str(dfup.loc[j,'Viejo'])
+    #if clave==ArtiV:
+    ArtiN=str(dfup.loc[j,'Nuevo'])
+    print(ArtiN,ArtiV) #---------------------------------actualizar prods
+    cursor.execute("UPDATE clavesadd SET articulo ='"+ArtiV+"' WHERE clave='"+ArtiN+"'")
         
 cnxn.commit()
 cursor.close()
